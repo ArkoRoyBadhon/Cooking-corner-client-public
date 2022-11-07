@@ -1,12 +1,15 @@
-import img from './assets/cook-circle.gif';
+
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
+import Main from './Layouts/Main';
+import router from './Router/Routes/Routes';
 
 function App() {
   return (
-    <div theme="light">
-      <img src={img} alt="" />
-      <h2>hello</h2>
-      <p>hello</p>
+    <div data-theme="light">
+      <RouterProvider router={router}>
+        <Main></Main>
+      </RouterProvider>
     </div>
   );
 }
