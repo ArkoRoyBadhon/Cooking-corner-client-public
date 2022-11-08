@@ -6,7 +6,7 @@ import { AuthProvider } from '../../../Context/AuthContext';
 
 const SignUp = () => {
     const [errorFound, setErrorFound] = useState('');
-    const { createUser, logOut, updateUserProfile } = useContext(AuthProvider);
+    const { createUser, logOut, updateUserProfile, googleSignIn } = useContext(AuthProvider);
 
 
     const navigate = useNavigate();
@@ -60,6 +60,18 @@ const SignUp = () => {
             })
     }
 
+    const handleGoogle = () => {
+        setErrorFound('');
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                navigate('/');
+            })
+            .catch(error => {
+                setErrorFound(error.message);
+            })
+    }
+
 
     return (
         <div className="hero bg-base-100 max-w-screen-xl mx-auto">
@@ -102,6 +114,9 @@ const SignUp = () => {
                                 <input type="submit" value="signup" className='btn btn-primary' />
                             </div>
                         </form>
+                        <p className="-mt-1"><small>Don't have an account? <Link className='' to='/signup'>Sign Up</Link></small></p>
+                        <div className="divider">OR</div>
+                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Google</button>
                     </div>
                 </div>
             </div>
