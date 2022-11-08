@@ -10,6 +10,7 @@ const Header = () => {
     const links = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
+        <li><Link to='/services'>Services</Link></li>
     </>
 
     const handleLogOut = () => {

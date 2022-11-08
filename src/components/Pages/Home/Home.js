@@ -56,7 +56,7 @@ const Home = () => {
 
             <div className="my-8 max-w-screen-xl mx-auto">
                 <h2 className="text-center text-3xl font-extrabold my-8">Special Dishes</h2>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {
                         services.map(service => <ServiceCard
                             service={service}
