@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCDIFxKQWnsmqPPHCF8V-PLb--zrnYUphY",
-  authDomain: "cooking-corner-69041.firebaseapp.com",
-  projectId: "cooking-corner-69041",
-  storageBucket: "cooking-corner-69041.appspot.com",
-  messagingSenderId: "683262235085",
-  appId: "1:683262235085:web:6011cd9a2c41eb2672b484"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId
 };
 
 // Initialize Firebase
