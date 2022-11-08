@@ -5,7 +5,7 @@ import AuthContext, { AuthProvider } from '../../../Context/AuthContext';
 
 const Login = () => {
     const [theError, setTheError] = useState('');
-    const { login } = useContext(AuthProvider);
+    const { login, googleSignIn } = useContext(AuthProvider);
 
     const navigate = useNavigate();
 
@@ -23,10 +23,22 @@ const Login = () => {
             })
             .catch(error => {
                 setTheError(error.message);
-            
+
             })
             .finally(() => {
-                
+
+            })
+    }
+
+    const handleGoogle = () => {
+        setTheError('');
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                navigate('/');
+            })
+            .catch(error => {
+                setTheError(error.message);
             })
     }
 
@@ -59,7 +71,9 @@ const Login = () => {
                                 <input type="submit" value="Login" className='btn btn-primary' />
                             </div>
                         </form>
-                        <p className="">Don't have an account? <Link className='btn btn-ghost' to='/signup'>Sign Up</Link></p>
+                        <p className="-mt-1"><small>Don't have an account? <Link className='' to='/signup'>Sign Up</Link></small></p>
+                        <div className="divider">OR</div>
+                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Google</button>
                     </div>
                 </div>
             </div>

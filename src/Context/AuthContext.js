@@ -1,11 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import app from '../Firebase/firebase.config';
 
 
 export const AuthProvider = createContext();
 const auth = getAuth(app);
 
+const googleProvider = new GoogleAuthProvider();
 
 const AuthContext = ({ children }) => {
 
@@ -22,10 +23,9 @@ const AuthContext = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    // const googleSignIn = () => {
-    //     localStorage.removeItem('genius-token');
-    //     return signInWithPopup(auth, googleProvider);
-    // }
+    const googleSignIn = () => {
+        return signInWithPopup(auth, googleProvider);
+    }
 
     const updateUserProfile = (profile) => {
         return updateProfile(auth.currentUser, profile);
@@ -51,6 +51,7 @@ const AuthContext = ({ children }) => {
         createUser,
         login,
         updateUserProfile,
+        googleSignIn,
         logOut,
 
     }
