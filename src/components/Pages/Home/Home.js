@@ -4,13 +4,14 @@ import ingredient from '../../../assets/ingredients.jpg'
 import ingredient2 from '../../../assets/ingredients2.jpg'
 import food from '../../../assets/food.jpg'
 import ServiceCard from '../Services/ServiceCard/ServiceCard';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [services, setServices] = useState([]);
 
 
     useEffect(() => {
-        fetch('services.json')
+        fetch('http://localhost:5000/serviceslimit')
             .then(res => res.json())
             .then(data => {
                 setServices(data)
@@ -64,11 +65,9 @@ const Home = () => {
                     }
                 </div>
                 <div className="text-center my-5">
-                    <button className='btn btn-outline btn-primary'>See ALL</button>
+                    <Link to='/services' className='btn btn-outline btn-primary'>See ALL</Link>
                 </div>
             </div>
-
-
         </div>
     );
 };
