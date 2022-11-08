@@ -1,0 +1,45 @@
+[
+    {
+        "name": "Khacci",
+        "image": "",
+        "rating": 4.5,
+        "price": "120",
+        "description": "this is test"
+    },
+    {
+        "name": "Khasir Vuna",
+        "image": "",
+        "rating": 4.3,
+        "price": "235",
+        "description": "this is test"
+    },
+    {
+        "name": "Mac er Jhol",
+        "image": "",
+        "rating": 4.5,
+        "price": "120",
+        "description": "this is test"
+    },
+    {
+        "name": "Khicuri",
+        "image": "",
+        "rating": 4.5,
+        "price": "90",
+        "description": "this is test"
+    },
+    {
+        "name": "Pasta",
+        "image": "",
+        "rating": 4.5,
+        "price": "60",
+        "description": "this is test"
+    },
+    {
+        "name": "Noodles",
+        "image": "",
+        "rating": 4.5,
+        "price": "60",
+        "description": "this is test"
+    }
+
+]
