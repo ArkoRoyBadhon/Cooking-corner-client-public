@@ -83,13 +83,13 @@ const ServiceDetail = () => {
                                             <label className="label">
                                                 <span className="label-text">Your Name</span>
                                             </label>
-                                            <input type="text" name='name' placeholder="Name" className="input input-bordered w-full max-w-xs mx-auto" />
+                                            <input type="text" name='name' placeholder="Name" required className="input input-bordered w-full max-w-xs mx-auto" />
                                         </div>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
                                                 <span className="label-text">Your Email</span>
                                             </label>
-                                            <input type="email" name='email' placeholder="Email" className="input input-bordered w-full max-w-xs mx-auto" />
+                                            <input defaultValue={user?.email} type="email" name='email' placeholder="Email" className="input input-bordered w-full max-w-xs mx-auto" readOnly />
                                         </div>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
@@ -107,7 +107,7 @@ const ServiceDetail = () => {
                                             <label className="label">
                                                 <span className="label-text">Write review</span>
                                             </label>
-                                            <textarea name='textarea' className="textarea textarea-bordered h-24" placeholder="Review"></textarea>
+                                            <textarea name='textarea' className="textarea textarea-bordered h-24" required placeholder="Review"></textarea>
                                         </div>
                                         <div className="modal-action ">
                                             <button type='submit' className='submit'>

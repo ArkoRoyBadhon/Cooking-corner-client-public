@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthProvider } from '../../../../Context/AuthContext';
 import ServiceCard from '../ServiceCard/ServiceCard';
 
 const AllServices = () => {
     const services = useLoaderData();
-    // console.log(services);
-
 
     return (
         <div className="max-w-screen-xl mx-auto my-10">

@@ -24,14 +24,17 @@ const AuthContext = ({ children }) => {
     }
 
     const googleSignIn = () => {
+        setLoading(true)
         return signInWithPopup(auth, googleProvider);
     }
 
     const updateUserProfile = (profile) => {
+        setLoading(true)
         return updateProfile(auth.currentUser, profile);
     }
 
     const logOut = () => {
+        setLoading(true)
         localStorage.removeItem('genius-token');
         return signOut(auth);
     }
@@ -53,6 +56,9 @@ const AuthContext = ({ children }) => {
         updateUserProfile,
         googleSignIn,
         logOut,
+        loading,
+        setLoading,
+
 
     }
 
