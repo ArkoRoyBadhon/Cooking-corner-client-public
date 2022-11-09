@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import useTitle from '../../../Hooks/useTitle';
 
 const AddService = () => {
     const [uploadInfo, setUploadInfo] = useState([])
 
+    useTitle("Add Service");
 
     const handleSubmit = (event) => {
         event.preventDefault();

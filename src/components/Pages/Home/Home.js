@@ -5,10 +5,11 @@ import ingredient2 from '../../../assets/ingredients2.jpg'
 import food from '../../../assets/food.jpg'
 import ServiceCard from '../Services/ServiceCard/ServiceCard';
 import { Link } from 'react-router-dom';
+import useTitle from '../../Hooks/useTitle';
 
 const Home = () => {
     const [services, setServices] = useState([]);
-
+    useTitle("Home");
 
     useEffect(() => {
         fetch('http://localhost:5000/serviceslimit')

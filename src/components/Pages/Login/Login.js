@@ -1,14 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginpic from '../../../assets/93385-login.gif'
 import AuthContext, { AuthProvider } from '../../../Context/AuthContext';
+import useTitle from '../../Hooks/useTitle';
+import Spinner from '../../Spinner';
 
 const Login = () => {
     const [theError, setTheError] = useState('');
-    const { login, setLoading, googleSignIn } = useContext(AuthProvider);
+    const { login, loading, setLoading, googleSignIn } = useContext(AuthProvider);
+    const [loader, setLoader] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
+    useTitle("Login");
 
     const from = location.state?.from?.pathname || '/'
 
@@ -21,8 +25,9 @@ const Login = () => {
         login(email, password)
             .then(result => {
                 const user = result.user;
+                setLoading(true)
                 form.reset();
-                navigate(from, {replace: true})
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 setTheError(error.message);
@@ -44,6 +49,25 @@ const Login = () => {
                 setTheError(error.message);
             })
     }
+    
+    useEffect(() => {
+        setLoader(true)
+    }, [])
+
+    if (loader) {
+        return <div className='w-3/5 mx-auto text-center my-40'>
+            <div className='hidden'>
+                {
+                    setTimeout(() => {
+                        setLoader(false)
+                    }, 400)
+                }
+            </div>
+            <Spinner></Spinner>
+        </div>
+    }
+
+    
 
     return (
         <div className="hero bg-base-100 max-w-screen-xl mx-auto">

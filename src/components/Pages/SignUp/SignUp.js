@@ -1,16 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import signup from '../../../assets/23640-sign-in-or-sign-up-animation.gif'
 import { AuthProvider } from '../../../Context/AuthContext';
+import useTitle from '../../Hooks/useTitle';
+import Spinner from '../../Spinner';
 
 
 const SignUp = () => {
     const [errorFound, setErrorFound] = useState('');
     const { createUser, logOut, updateUserProfile, googleSignIn } = useContext(AuthProvider);
 
-
+    useTitle("SignUp");
     const navigate = useNavigate();
 
+    const [loader, setLoader] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -70,6 +73,23 @@ const SignUp = () => {
             .catch(error => {
                 setErrorFound(error.message);
             })
+    }
+
+    useEffect(() => {
+        setLoader(true)
+    }, [])
+
+    if (loader) {
+        return <div className='w-3/5 mx-auto text-center my-40'>
+            <div className='hidden'>
+                {
+                    setTimeout(() => {
+                        setLoader(false)
+                    }, 400)
+                }
+            </div>
+            <Spinner></Spinner>
+        </div>
     }
 
 

@@ -13,6 +13,7 @@ const AuthContext = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+
     const createUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
@@ -38,6 +39,8 @@ const AuthContext = ({ children }) => {
         localStorage.removeItem('genius-token');
         return signOut(auth);
     }
+
+    
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
