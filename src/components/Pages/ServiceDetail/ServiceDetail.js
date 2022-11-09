@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { json, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
 import ReviewTable from '../MyReviews/ReviewTable';
 
@@ -15,6 +15,7 @@ const ServiceDetail = () => {
         setSubmitbtn(true);
         const form = event.target;
         const name = form.name.value;
+        const service_name = form.service_name.value;
         const email = form.email.value;
         const photourl = form.photourl.value;
         const rating = form.rating.value;
@@ -23,6 +24,7 @@ const ServiceDetail = () => {
         const reviewInfo = {
             review_service: _id,
             name: name,
+            service_name: service_name,
             email: email,
             photourl: photourl,
             rating: rating,
@@ -52,16 +54,35 @@ const ServiceDetail = () => {
         setSubmitbtn(false);
     }
 
+
+    const handleDelete = (id) => {
+        alert('delete btn'+id)
+        fetch(`http://localhost:5000/reviews/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.deletedCount > 0) {
+                alert('deleted successfully');
+                const remaining = allreviews.filter(odr => odr._id !== id)
+                setAllReviews(remaining);
+            }
+            
+        })
+        .catch(err => console.error(err))
+    }
+    
+
     useEffect(() => {
         fetch(`http://localhost:5000/all-reviews/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setAllReviews(data)
-                console.log(allreviews);
-                console.log(data);
+                // console.log(allreviews);
+                // console.log(data);
             })
             .catch(err => console.error(err))
-    }, [])
+    }, [allreviews])
 
 
     return (
@@ -87,7 +108,9 @@ const ServiceDetail = () => {
                             <tr>
                                 <th>Name</th>
                                 <th>Rating</th>
+                                <th>Service Name</th>
                                 <th>Review</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,6 +119,7 @@ const ServiceDetail = () => {
                                     <ReviewTable
                                         key={review._id}
                                         review={review}
+                                        handleDelete={handleDelete}
                                     ></ReviewTable>
                                 )
                             }
@@ -104,9 +128,8 @@ const ServiceDetail = () => {
                 </div>
             </div>
 
-
             <div>
-                <a href="#my-modal-2 my-8" className="btn">Give a review</a>
+                <a href="#my-modal-2" className="btn my-8">Give a review</a>
                 {
                     user?.uid ?
                         <>
@@ -124,6 +147,12 @@ const ServiceDetail = () => {
                                                 <span className="label-text">Your Name</span>
                                             </label>
                                             <input type="text" name='name' placeholder="Name" required className="input input-bordered w-full max-w-xs mx-auto" />
+                                        </div>
+                                        <div className="form-control w-full max-w-xs mx-auto">
+                                            <label className="label">
+                                                <span className="label-text">Service Name</span>
+                                            </label>
+                                            <input type="text" defaultValue={name} name='service_name' placeholder="Name" required className="input input-bordered w-full max-w-xs mx-auto" />
                                         </div>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
@@ -154,7 +183,6 @@ const ServiceDetail = () => {
                                                 {/* <a href="#" className="btn">Submit bb</a> */}
                                                 <input type="submit" className='btn' value="Submit" />
                                             </button>
-
                                         </div>
                                         {
                                             submitbtn && <>
@@ -173,7 +201,8 @@ const ServiceDetail = () => {
                             <div className="modal" id="my-modal-2">
                                 <div className="modal-box">
                                     <div className="relative">
-                                        <h3 className="font-bold text-xl text-center justify-center">Please Login to submit a review!!</h3>
+                                        <h3 className="font-bold text-xl text-center justify-center">Please login to add a review!!</h3>
+                                        <div className="text-center my-3"><Link className='btn btn-sm btn-outline btn-info' to='/login'>Login</Link></div>
                                         <div className="modal-action text-end absolute -top-7 right-0">
                                             <a href="#" className="btn btn-sm">X</a>
                                         </div>
@@ -181,7 +210,8 @@ const ServiceDetail = () => {
                                 </div>
                             </div>
                         </>
-                }</div>
+                }
+            </div>
         </div >
     );
 };

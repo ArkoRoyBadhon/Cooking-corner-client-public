@@ -14,13 +14,26 @@ const MyReviews = () => {
             .then(res => res.json())
             .then(data => {
                 setReviewData(data)
-                console.log(reviewData);
+                // console.log(reviewData);
             })
-    }, [user])
+    }, [reviewData, user])
 
-    console.log(reviewData.length);
-
-    // if(reviewData.length >)
+    const handleDelete = (id) => {
+        alert('delete btn'+id)
+        fetch(`http://localhost:5000/reviews/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.deletedCount > 0) {
+                alert('deleted successfully');
+                const remaining = reviewData.filter(odr => odr._id !== id)
+                setReviewData(remaining);
+            }
+            
+        })
+        .catch(err => console.error(err))
+    }
 
     return (
         reviewData.length > 0 ?
@@ -31,7 +44,9 @@ const MyReviews = () => {
                         <tr>
                             <th>Name</th>
                             <th>Rating</th>
+                            <th>Service Name</th>
                             <th>Review</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +56,7 @@ const MyReviews = () => {
                                     key={review._id}
                                     review={review}
                                     reviewData={reviewData}
+                                    handleDelete={handleDelete}
                                 ></ReviewTable>
                             )
                         }

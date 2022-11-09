@@ -1,15 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import blank_img from '../../../assets/blank_profile.png'
 
 
-const ReviewTable = ({ review, reviewData }) => {
+const ReviewTable = ({ review, reviewData, handleDelete }) => {
 
-    const { name, photourl, email, textarea, rating } = review;
+    const { _id, name, photourl, email, service_name, textarea, rating } = review;
     const placeholderImage = blank_img
 
     const onImageError = (e) => {
         e.target.src = placeholderImage
     }
+
+    
 
     return (
         <tr>
@@ -28,7 +31,14 @@ const ReviewTable = ({ review, reviewData }) => {
             <td>
                 {rating}
             </td>
+            <td>
+                {service_name}
+            </td>
             <td>{textarea}</td>
+            <td>
+                <button className='btn btn-outline btn-sm btn-info'>Update</button>
+                <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
+            </td>
         </tr>
     );
 }

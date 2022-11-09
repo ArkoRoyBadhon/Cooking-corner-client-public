@@ -14,6 +14,9 @@ const Header = () => {
         {
             user?.uid && <li><Link to={`/my-reviews/`}>My Reviews</Link></li>
         }
+        {
+            user?.uid && <li><Link to={`/add-service`}>Add Services</Link></li>
+        }
     </>
 
     const handleLogOut = () => {
