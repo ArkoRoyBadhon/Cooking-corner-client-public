@@ -1,11 +1,55 @@
-import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { json, useLoaderData } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
 
 const ServiceDetail = () => {
     const { user } = useContext(AuthProvider);
     const service = useLoaderData();
+    const [submitbtn, setSubmitbtn] = useState(false);
     const { _id, name, image, rating, price, description } = service;
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        setSubmitbtn(true);
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const photourl = form.photourl.value;
+        const rating = form.rating.value;
+        const textarea = form.textarea.value;
+
+        const reviewInfo = {
+            review_service: _id,
+            name: name,
+            email: email,
+            photourl: photourl,
+            rating: rating,
+            textarea: textarea
+        }
+        console.log(reviewInfo);
+        fetch('http://localhost:5000/reviews', {
+            method: 'POST',
+            headers: {
+                "content-type": 'application/json'
+            },
+            body: JSON.stringify(reviewInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged ) {
+                    alert('review submitted')
+                    form.reset();
+                }
+            })
+            .catch(err => console.error(err))
+    }
+
+    const handleClose = () => {
+        setSubmitbtn(false);
+    }
+
+
 
     return (
         <div className='max-w-screen-xl mx-auto my-10'>
@@ -26,7 +70,7 @@ const ServiceDetail = () => {
                 {
                     user?.uid ?
                         <>
-                            <div className="modal" id="my-modal-2">
+                            <div className="modal cursor-pointer" id="my-modal-2">
                                 <div className="modal-box">
                                     <div className="relative">
                                         <h3 className="font-bold text-xl text-center justify-center">Submit Your Review</h3>
@@ -34,42 +78,53 @@ const ServiceDetail = () => {
                                             <a href="#" className="btn btn-sm">X</a>
                                         </div>
                                     </div>
-                                    <form>
+                                    <form onSubmit={handleFormSubmit}>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
                                                 <span className="label-text">Your Name</span>
                                             </label>
-                                            <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs mx-auto" />
+                                            <input type="text" name='name' placeholder="Name" className="input input-bordered w-full max-w-xs mx-auto" />
                                         </div>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
                                                 <span className="label-text">Your Email</span>
                                             </label>
-                                            <input type="email" placeholder="Email" className="input input-bordered w-full max-w-xs mx-auto" />
+                                            <input type="email" name='email' placeholder="Email" className="input input-bordered w-full max-w-xs mx-auto" />
                                         </div>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
                                                 <span className="label-text">Your Photo Url</span>
                                             </label>
-                                            <input type="text" placeholder="Photo url" className="input input-bordered w-full max-w-xs" />
+                                            <input type="text" name='photourl' placeholder="Photo url" className="input input-bordered w-full max-w-xs" />
                                         </div>
                                         <div className="form-control w-full max-w-xs mx-auto">
                                             <label className="label">
                                                 <span className="label-text">Rating</span>
                                             </label>
-                                            <input type="text" placeholder="Rating" className="input input-bordered w-full max-w-xs" />
+                                            <input type="text" name='rating' placeholder="Rating" className="input input-bordered w-full max-w-xs" />
                                         </div>
                                         <div className="form-control max-w-xs mx-auto">
                                             <label className="label">
                                                 <span className="label-text">Write review</span>
                                             </label>
-                                            <textarea className="textarea textarea-bordered h-24" placeholder="Review"></textarea>
+                                            <textarea name='textarea' className="textarea textarea-bordered h-24" placeholder="Review"></textarea>
                                         </div>
                                         <div className="modal-action ">
-                                            <a href="#" className="btn">Submit</a>
-                                        </div>
-                                    </form>
+                                            <button type='submit' className='submit'>
+                                                {/* <a href="#" className="btn">Submit bb</a> */}
+                                                <input type="submit" className='btn' value="Submit" />
+                                            </button>
 
+                                        </div>
+                                        {
+                                            submitbtn && <>
+                                                <div className="text-center text-success">
+                                                    <h2>Your Review Submited successfully</h2>
+                                                    <a onClick={handleClose} href="#" className="btn">Close</a>
+                                                </div>
+                                            </>
+                                        }
+                                    </form>
                                 </div>
                             </div>
                         </>
