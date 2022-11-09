@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { json, useLoaderData } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
+import ReviewTable from '../MyReviews/ReviewTable';
 
 const ServiceDetail = () => {
     const { user } = useContext(AuthProvider);
     const service = useLoaderData();
     const [submitbtn, setSubmitbtn] = useState(false);
+    const [allreviews, setAllReviews] = useState([]);
     const { _id, name, image, rating, price, description } = service;
 
     const handleFormSubmit = (event) => {
@@ -37,18 +39,29 @@ const ServiceDetail = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if (data.acknowledged ) {
+                if (data.acknowledged) {
                     alert('review submitted')
                     form.reset();
                 }
             })
             .catch(err => console.error(err))
+
     }
 
     const handleClose = () => {
         setSubmitbtn(false);
     }
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/all-reviews/${_id}`)
+            .then(res => res.json())
+            .then(data => {
+                setAllReviews(data)
+                console.log(allreviews);
+                console.log(data);
+            })
+            .catch(err => console.error(err))
+    }, [])
 
 
     return (
@@ -64,9 +77,36 @@ const ServiceDetail = () => {
             </div>
             <p className="text-md">{description}</p>
 
+            <div className="divider"></div>
+
+            <div className="">
+                <h4 className="text-center font-semibold">All Reviews</h4>
+                <div className="overflow-x-auto max-w-screen-xl mx-auto my-8">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Rating</th>
+                                <th>Review</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                allreviews.map(review =>
+                                    <ReviewTable
+                                        key={review._id}
+                                        review={review}
+                                    ></ReviewTable>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
 
             <div>
-                <a href="#my-modal-2" className="btn">Give a review</a>
+                <a href="#my-modal-2 my-8" className="btn">Give a review</a>
                 {
                     user?.uid ?
                         <>
