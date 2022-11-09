@@ -67,7 +67,6 @@ const ServiceDetail = () => {
                 const remaining = allreviews.filter(odr => odr._id !== id)
                 setAllReviews(remaining);
             }
-            
         })
         .catch(err => console.error(err))
     }
