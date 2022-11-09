@@ -21,6 +21,15 @@ const ServiceDetail = () => {
         const rating = form.rating.value;
         const textarea = form.textarea.value;
 
+        const current = new Date();
+
+        const time = current.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+        });
+        // console.log(time);
+
         const reviewInfo = {
             review_service: _id,
             name: name,
@@ -28,9 +37,10 @@ const ServiceDetail = () => {
             email: email,
             photourl: photourl,
             rating: rating,
-            textarea: textarea
+            textarea: textarea,
+            time: time
         }
-        console.log(reviewInfo);
+        // console.log(reviewInfo);
         fetch('http://localhost:5000/reviews', {
             method: 'POST',
             headers: {
@@ -55,30 +65,11 @@ const ServiceDetail = () => {
     }
 
 
-    const handleDelete = (id) => {
-        alert('delete btn'+id)
-        fetch(`http://localhost:5000/reviews/${id}`, {
-            method: "DELETE"
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.deletedCount > 0) {
-                alert('deleted successfully');
-                const remaining = allreviews.filter(odr => odr._id !== id)
-                setAllReviews(remaining);
-            }
-        })
-        .catch(err => console.error(err))
-    }
-    
-
     useEffect(() => {
         fetch(`http://localhost:5000/all-reviews/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setAllReviews(data)
-                // console.log(allreviews);
-                // console.log(data);
             })
             .catch(err => console.error(err))
     }, [allreviews])
@@ -109,17 +100,38 @@ const ServiceDetail = () => {
                                 <th>Rating</th>
                                 <th>Service Name</th>
                                 <th>Review</th>
-                                <th></th>
+                                <th>Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 allreviews.map(review =>
-                                    <ReviewTable
-                                        key={review._id}
-                                        review={review}
-                                        handleDelete={handleDelete}
-                                    ></ReviewTable>
+                                    <tr key={review._id}>
+                                        <td>
+                                            <div className="flex items-center space-x-3">
+                                                <div className="avatar">
+                                                    <div className="mask mask-squircle w-12 h-12">
+                                                        <img src={review.photourl} alt="img" onError={review.onImageError} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="font-bold">{review.name}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {review.rating}
+                                        </td>
+                                        <td>
+                                            {review.service_name}
+                                        </td>
+                                        <td>{review.textarea}</td>
+                                        <td>{review.time}</td>
+                                        {/* <td>
+                <button className='btn btn-outline btn-sm btn-info'>Update</button>
+                <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
+            </td> */}
+                                    </tr>
                                 )
                             }
                         </tbody>

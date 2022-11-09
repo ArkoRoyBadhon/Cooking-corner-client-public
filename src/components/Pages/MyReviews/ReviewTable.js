@@ -5,12 +5,16 @@ import blank_img from '../../../assets/blank_profile.png'
 
 const ReviewTable = ({ review, reviewData, handleDelete }) => {
 
-    const { _id, name, photourl, email, service_name, textarea, rating } = review;
+    const { _id, name, photourl, time, service_name, textarea, rating } = review;
     const placeholderImage = blank_img
 
     const onImageError = (e) => {
         e.target.src = placeholderImage
     }
+
+    // const handleUpdate = (id) => {
+    //     alert('update btn'+id)
+    // }
 
     
 
@@ -35,8 +39,9 @@ const ReviewTable = ({ review, reviewData, handleDelete }) => {
                 {service_name}
             </td>
             <td>{textarea}</td>
+            <td>{time}</td>
             <td>
-                <button className='btn btn-outline btn-sm btn-info'>Update</button>
+                <Link to={`/update-review/${_id}`} className='btn btn-outline btn-sm btn-info'>Update</Link>
                 <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
             </td>
         </tr>
