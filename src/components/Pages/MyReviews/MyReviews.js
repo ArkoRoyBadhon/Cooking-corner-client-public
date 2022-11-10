@@ -5,14 +5,23 @@ import ReviewTable from './ReviewTable';
 
 
 const MyReviews = () => {
-    const { user } = useContext(AuthProvider);
+    const { user, logOut } = useContext(AuthProvider);
     const [reviewData, setReviewData] = useState([])
     useTitle("MyReviews");
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews/${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('cooking-token')}`
+            }
+        })
+            .then(res => {
+                if(res.status === 401 || res.status === 403){
+                    return logOut();
+                }
+                return res.json()
+            })
             .then(data => {
                 setReviewData(data)
                 // console.log(reviewData);
@@ -22,7 +31,10 @@ const MyReviews = () => {
     const handleDelete = (id) => {
         alert('delete btn'+id)
         fetch(`http://localhost:5000/reviews/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('cooking-token')}`
+            }
         })
         .then(res => res.json())
         .then(data => {
@@ -37,7 +49,7 @@ const MyReviews = () => {
     }
 
     return (
-        reviewData.length > 0 ?
+        reviewData?.length > 0 ?
         <div>
             <div className="overflow-x-auto max-w-screen-xl mx-auto min-h-screen mt-8">
                 <table className="table w-full">

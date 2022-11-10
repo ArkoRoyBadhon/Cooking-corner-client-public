@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginpic from '../../../assets/93385-login.gif'
-import AuthContext, { AuthProvider } from '../../../Context/AuthContext';
+import { AuthProvider } from '../../../Context/AuthContext';
 import useTitle from '../../Hooks/useTitle';
 import Spinner from '../../Spinner';
 
 const Login = () => {
     const [theError, setTheError] = useState('');
-    const { login, loading, setLoading, googleSignIn } = useContext(AuthProvider);
+    const { login, setLoading, googleSignIn } = useContext(AuthProvider);
     const [loader, setLoader] = useState(false);
 
     const navigate = useNavigate();
@@ -25,9 +25,26 @@ const Login = () => {
         login(email, password)
             .then(result => {
                 const user = result.user;
-                setLoading(true)
-                form.reset();
-                navigate(from, { replace: true })
+
+                const currentUser = {
+                    email: user.email
+                }
+
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem('cooking-token', data.token);
+                        navigate(from, { replace: true })
+                    })
+
+
             })
             .catch(error => {
                 setTheError(error.message);
@@ -49,7 +66,7 @@ const Login = () => {
                 setTheError(error.message);
             })
     }
-    
+
     useEffect(() => {
         setLoader(true)
     }, [])
@@ -67,7 +84,7 @@ const Login = () => {
         </div>
     }
 
-    
+
 
     return (
         <div className="hero bg-base-100 max-w-screen-xl mx-auto">

@@ -36,7 +36,7 @@ const AuthContext = ({ children }) => {
 
     const logOut = () => {
         setLoading(true)
-        localStorage.removeItem('genius-token');
+        localStorage.removeItem('cooking-token')
         return signOut(auth);
     }
 
