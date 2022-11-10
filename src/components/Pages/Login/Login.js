@@ -4,7 +4,8 @@ import loginpic from '../../../assets/93385-login.gif'
 import { AuthProvider } from '../../../Context/AuthContext';
 import useTitle from '../../Hooks/useTitle';
 import Spinner from '../../Spinner';
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
+import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
     const [theError, setTheError] = useState('');
@@ -148,7 +149,7 @@ const Login = () => {
                         </form>
                         <p className="-mt-1"><small>Don't have an account? <Link className='' to='/signup'>Sign Up</Link></small></p>
                         <div className="divider">OR</div>
-                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Continue With Google</button>
+                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary"><FaGoogle className='mr-2 text-red-500' /> Continue With Google</button>
                     </div>
                 </div>
             </div>

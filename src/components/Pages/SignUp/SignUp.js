@@ -5,6 +5,7 @@ import { AuthProvider } from '../../../Context/AuthContext';
 import useTitle from '../../Hooks/useTitle';
 import Spinner from '../../Spinner';
 import toast from 'react-hot-toast'
+import { FaGoogle } from 'react-icons/fa';
 
 
 
@@ -18,6 +19,7 @@ const SignUp = () => {
     const [loader, setLoader] = useState(false);
 
     const notifySignUp = () => toast.success('User Sign Up Succcess!!')
+    const notifyError = () => toast.error('Login Failed! Please enter correct email or password');
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -71,9 +73,27 @@ const SignUp = () => {
     const handleGoogle = () => {
         setErrorFound('');
         googleSignIn()
-            .then(result => {
-                const user = result.user;
-                navigate('/');
+        .then(result => {
+            const user = result.user;
+
+            const currentUser = {
+                email: user.email
+            }
+
+            fetch('https://cooking-corner-server-side.vercel.app/jwt', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(currentUser)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    notifySignUp()
+                    localStorage.setItem('cooking-token', data.token);
+                    navigate('/')
+                })
             })
             .catch(error => {
                 setErrorFound(error.message);
@@ -131,7 +151,6 @@ const SignUp = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name='password' placeholder="Password" className="input input-bordered" />
-                                
                             </div>
                             <div className="form-control mt-6">
                                 <input type="submit" value="signup" className='btn btn-primary' />
@@ -139,7 +158,7 @@ const SignUp = () => {
                         </form>
                         <p>Already have an account? <Link to='/login'>Login</Link></p>
                         <div className="divider">OR</div>
-                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Continue With Google</button>
+                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary"><FaGoogle className='mr-2 text-red-500' />Continue With Google</button>
                     </div>
                 </div>
             </div>
