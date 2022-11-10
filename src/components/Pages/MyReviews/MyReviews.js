@@ -60,12 +60,15 @@ const MyReviews = () => {
                 <div className="overflow-x-auto max-w-screen-xl mx-auto min-h-screen mt-8">
                     <table className="table max-w-screen mx-auto">
                         <thead>
-                            <tr className='px-3'>
-                                <th className='p-0'>Name</th>
-                                <th className='p-1'>Rating</th>
-                                <th className='p-1'>Service Name</th>
-                                <th className='p-1 min-w-6 max-w-8'>Review</th>
-                                <th className='p-1'>Time</th>
+                            <tr className='px-3 text-xs'>
+                                <th className='text-xs p-1 lg:p-4'>Name</th>
+                                <th className='p-0 text-xs lg:p-4'>Rating</th>
+                                <th className='p-0 text-center lg:p-4'>
+                                    <p>Service</p>
+                                    <p>Name</p>
+                                </th>
+                                <th className='p-0 min-w-6 max-w-8 lg:p-4'>Review</th>
+                                <th className='p-0 lg:p-4'>Time</th>
                             </tr>
                         </thead>
                         <tbody>

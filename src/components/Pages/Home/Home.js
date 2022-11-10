@@ -27,7 +27,7 @@ const Home = () => {
                     <img src={img} className="w-4/5 lg:max-w-sm rounded-lg " alt='' />
                     <div className='lg:w-2/4 mx-auto'>
                         <h1 className="text-5xl font-bold">Here is your Chef</h1>
-                        <p className="py-6 w-4/5 mx-auto lg:w-full">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                        <p className="py-6 w-4/5 mx-auto lg:w-full">Hello I am Arko Roy Badhon. I am the world class chef in bd. I offer some food service or menu to you at very affordable price. You should try me with my services.</p>
                         <button className="btn btn-primary">View ALL Dishes</button>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ const Home = () => {
                     <img src={ingredient2} className="max-w-sm h-40 w-60 rounded-lg" alt='' />
                     <div className='lg:w-2/4 mx-auto'>
                         <h1 className="text-5xl font-bold">Perfect Ingredients</h1>
-                        <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                        <p className="py-6">In my food services, i ensure you that the best ingredients are used in my food items. Thats why my services serves you with a premium quality.</p>
                     </div>
                 </div>
             </div>

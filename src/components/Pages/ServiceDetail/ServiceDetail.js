@@ -13,7 +13,7 @@ const ServiceDetail = () => {
     const { _id, name, image, rating, price, description } = service;
 
 
-    const notifyReview = () => toast.success('New Review Added') 
+    const notifyReview = () => toast.success('New Review Added')
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -99,7 +99,7 @@ const ServiceDetail = () => {
             <div className="">
                 <h4 className="text-center font-semibold">All Reviews</h4>
                 <div className="overflow-x-auto max-w-screen-xl mx-auto my-8">
-                    <table className="table w-4/5 lg:w-full">
+                    <table className="table w-4/5 lg:w-full mx-auto">
                         <thead>
                             <tr className='p-3'>
                                 <th className='text-xs p-2'>Name</th>
@@ -112,31 +112,30 @@ const ServiceDetail = () => {
                         <tbody>
                             {
                                 allreviews.map(review =>
-                                    <tr key={review._id}>
-                                        <td className='text-xs'>
+                                    <tr>
+                                        <td className="text-xs p-1 m-0">
                                             <div className="lg:flex items-center space-x-3">
                                                 <div className="avatar">
-                                                    <div className="mask mask-squircle w-12 h-12">
-                                                        <img src={review.photourl} alt="img" onError={review.onImageError} />
+                                                    <div className="mask mask-squircle w-8 lg:w-12 h-12">
+                                                        <img className='' src={review.photourl} alt="img" onError={review.onImageError} />
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold text-xs -ml-3 lg:ml-5">{review.name}</div>
+                                                    <div className="text-xs -ml-3 lg:ml-5">{review.name}</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className='text-xs'>
+                                        <td className="text-xs p-1 m-0">
                                             {review.rating}
                                         </td>
-                                        <td className='text-xs p-1'>
+                                        <td className="text-xs p-1 m-0">
                                             {review.service_name}
                                         </td>
-                                        <td className='text-xs p-1'>{review.textarea}</td>
-                                        <td className='text-xs p-1'>{review.time}</td>
-                                        {/* <td>
-                <button className='btn btn-outline btn-sm btn-info'>Update</button>
-                <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
-            </td> */}
+                                        <td className="text-xs text-area p-1 m-0">
+                                            {/* <div className="w-6 h-">{textarea}</div> */}
+                                            <textarea defaultValue={review.textarea} className="min-h-fit w-12 lg:w-36" required placeholder="Review" readOnly></textarea>
+                                        </td>
+                                        <td className="text-xs p-1 m-0">{review.time}</td>
                                     </tr>
                                 )
                             }
@@ -146,7 +145,9 @@ const ServiceDetail = () => {
             </div>
 
             <div>
-                <a href="#my-modal-2" className="btn btn-sm my-8">Give a review</a>
+                <div className="w-4/5 mx-auto ">
+                    <a href="#my-modal-2" className="btn btn-sm my-8">Give a review</a>
+                </div>
                 {
                     user?.uid ?
                         <>

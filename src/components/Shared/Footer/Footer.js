@@ -13,10 +13,10 @@ const Footer = () => {
                         user?.uid ?
                             <>
                                 <Link to='/' className="link link-hover">Home</Link>
-                                <Link className="link link-hover">Blog</Link>
-                                <Link className="link link-hover">Services</Link>
-                                <Link className="link link-hover">My reviews</Link>
-                                <Link className="link link-hover">Add Services</Link>
+                                <Link to='/blog' className="link link-hover">Blog</Link>
+                                <Link to='/services' className="link link-hover">Services</Link>
+                                <Link to='/my-reviews' className="link link-hover">My reviews</Link>
+                                <Link to="/add-service" className="link link-hover">Add Services</Link>
                             </> :
                             <>
                                 <Link to='/' className="link link-hover">Home</Link>

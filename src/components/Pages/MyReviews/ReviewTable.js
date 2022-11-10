@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import blank_img from '../../../assets/blank_profile.png'
+import './table.css'
 
 
 const ReviewTable = ({ review, reviewData, handleDelete }) => {
@@ -18,7 +19,7 @@ const ReviewTable = ({ review, reviewData, handleDelete }) => {
 
     return (
         <tr>
-            <td className="text-xs">
+            <td className="text-xs p-1 m-0">
                 <div className="lg:flex items-center space-x-3">
                     <div className="avatar">
                         <div className="mask mask-squircle w-8 lg:w-12 h-12">
@@ -30,17 +31,20 @@ const ReviewTable = ({ review, reviewData, handleDelete }) => {
                     </div>
                 </div>
             </td>
-            <td className="text-xs">
+            <td className="text-xs p-1 m-0">
                 {rating}
             </td>
-            <td className="text-xs">
+            <td className="text-xs p-1 m-0">
                 {service_name}
             </td>
-            <td className="text-xs min-w-6 max-w-8">{textarea}</td>
-            <td className="text-xs">{time}</td>
+            <td className="text-xs text-area p-1 m-0">
+                {/* <div className="w-6 h-">{textarea}</div> */}
+                <textarea defaultValue={textarea} className="min-h-fit w-12 lg:w-36" required placeholder="Review" readOnly></textarea>
+            </td>
+            <td className="text-xs p-1 m-0">{time}</td>
             <td className="text-xs">
-                <Link to={`/update-review/${_id}`} className='btn btn-outline btn-sm btn-info'>Update</Link>
-                <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
+                <Link to={`/update-review/${_id}`} className='btn btn-outline btn-xs lg:btn-md btn-info'>Update</Link>
+                <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-xs lg:btn-md btn-outline btn-secondary'>Delete</button>
             </td>
         </tr>
     );
