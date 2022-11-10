@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import img from '../../../assets/cook-circle.gif'
 import ingredient from '../../../assets/ingredients.jpg'
 import ingredient2 from '../../../assets/ingredients2.jpg'
-import food from '../../../assets/food.jpg'
+import modelPerson from '../../../assets/success-women.jpg'
+// import food from '../../../assets/food.jpg'
 import ServiceCard from '../Services/ServiceCard/ServiceCard';
 import { Link } from 'react-router-dom';
 import useTitle from '../../Hooks/useTitle';
@@ -27,8 +28,8 @@ const Home = () => {
                     <img src={img} className="w-4/5 lg:max-w-sm rounded-lg " alt='' />
                     <div className='lg:w-2/4 mx-auto'>
                         <h1 className="text-5xl font-bold">Here is your Chef</h1>
-                        <p className="py-6 w-4/5 mx-auto lg:w-full">Hello I am Arko Roy Badhon. I am the world class chef in bd. I offer some food service or menu to you at very affordable price. You should try me with my services.</p>
-                        <button className="btn btn-primary">View ALL Dishes</button>
+                        <p className="py-6 w-4/5 mx-auto lg:w-full">Hello I am Arko Roy Badhon. I am the world class chef in bd. I offer some home made food service or menu to you at very affordable price. You should try me with my services.</p>
+                        <Link to='/services' className="btn btn-primary">View ALL Dishes</Link>
                     </div>
                 </div>
             </div>
@@ -40,7 +41,7 @@ const Home = () => {
                         <h1 className="mb-5 text-5xl font-bold">Special Discount</h1>
                         <p className="mb-5 text-xl">upto 30%</p>
                         <p className="mb-5 text-md">Very Limited Offer</p>
-                        <button className="btn btn-primary">Buy Now</button>
+                        <Link to='/services' className="btn btn-primary">Buy Now</Link>
                     </div>
                 </div>
             </div>
@@ -68,6 +69,23 @@ const Home = () => {
                 </div>
                 <div className="text-center my-5">
                     <Link to='/services' className='btn btn-outline btn-primary'>See ALL</Link>
+                </div>
+            </div>
+
+            <div className="hero  bg-base-100 my-12">
+                <div className="hero-content flex-col lg:flex-row text-center lg:text-left">
+                    <img src={modelPerson} className="w-4/5 lg:max-w-sm rounded-lg " alt='' />
+                    <div className='lg:w-2/4 mx-auto'>
+                        <h1 className="text-5xl font-bold">You Can Call me as Cloud Kitchen Chef</h1>
+                        <div className="py-6 w-4/5 mx-auto lg:w-full">
+                            <ul>
+                                <li>You Can feel Home made food taste</li>
+                                <li>Fully Healthy and hygenic</li>
+                                <li>Less Price Than Restaurants</li>
+                            </ul>
+                        </div>
+                        <Link to='/services' className="btn btn-primary">View ALL Dishes</Link>
+                    </div>
                 </div>
             </div>
         </div>
