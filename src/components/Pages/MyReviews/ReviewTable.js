@@ -16,31 +16,29 @@ const ReviewTable = ({ review, reviewData, handleDelete }) => {
     //     alert('update btn'+id)
     // }
 
-    
-
     return (
         <tr>
-            <td>
-                <div className="flex items-center space-x-3">
+            <td className="text-xs">
+                <div className="lg:flex items-center space-x-3">
                     <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                            <img src={photourl} alt="img" onError={onImageError} />
+                        <div className="mask mask-squircle w-8 lg:w-12 h-12">
+                            <img className='' src={photourl} alt="img" onError={onImageError} />
                         </div>
                     </div>
                     <div>
-                        <div className="font-bold">{name}</div>
+                        <div className="text-xs -ml-3 lg:ml-5">{name}</div>
                     </div>
                 </div>
             </td>
-            <td>
+            <td className="text-xs">
                 {rating}
             </td>
-            <td>
+            <td className="text-xs">
                 {service_name}
             </td>
-            <td>{textarea}</td>
-            <td>{time}</td>
-            <td>
+            <td className="text-xs min-w-6 max-w-8">{textarea}</td>
+            <td className="text-xs">{time}</td>
+            <td className="text-xs">
                 <Link to={`/update-review/${_id}`} className='btn btn-outline btn-sm btn-info'>Update</Link>
                 <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
             </td>

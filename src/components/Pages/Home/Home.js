@@ -12,7 +12,7 @@ const Home = () => {
     useTitle("Home");
 
     useEffect(() => {
-        fetch('http://localhost:5000/serviceslimit')
+        fetch('https://cooking-corner-server-side.vercel.app/serviceslimit')
             .then(res => res.json())
             .then(data => {
                 setServices(data)
@@ -24,10 +24,10 @@ const Home = () => {
         <div>
             <div className="hero  bg-base-100">
                 <div className="hero-content flex-col lg:flex-row-reverse text-center lg:text-left">
-                    <img src={img} className="max-w-sm rounded-lg" alt='' />
+                    <img src={img} className="w-4/5 lg:max-w-sm rounded-lg " alt='' />
                     <div className='lg:w-2/4 mx-auto'>
                         <h1 className="text-5xl font-bold">Here is your Chef</h1>
-                        <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                        <p className="py-6 w-4/5 mx-auto lg:w-full">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                         <button className="btn btn-primary">View ALL Dishes</button>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ const Home = () => {
             <div className="hero my-8 bg-fixed" style={{ backgroundImage: `url(https://www.refrigeratedfrozenfood.com/ext/resources/NEW_RD_Website/DefaultImages/default-pasta.jpg?1430942591)` }}>
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
-                    <div className="max-w-md flex lg:block">
+                    <div className="max-w-md flex-col lg:flex lg:block">
                         <h1 className="mb-5 text-5xl font-bold">Special Discount</h1>
                         <p className="mb-5 text-xl">upto 30%</p>
                         <p className="mb-5 text-md">Very Limited Offer</p>

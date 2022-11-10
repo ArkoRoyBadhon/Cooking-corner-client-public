@@ -4,6 +4,7 @@ import loginpic from '../../../assets/93385-login.gif'
 import { AuthProvider } from '../../../Context/AuthContext';
 import useTitle from '../../Hooks/useTitle';
 import Spinner from '../../Spinner';
+import toast from 'react-hot-toast'
 
 const Login = () => {
     const [theError, setTheError] = useState('');
@@ -13,6 +14,9 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     useTitle("Login");
+
+    const notifyLogin = () => toast.success('User Login Succcess!!')
+    const notifyError = () => toast.error('Login Failed! Please enter correct email or password');
 
     const from = location.state?.from?.pathname || '/'
 
@@ -30,7 +34,7 @@ const Login = () => {
                     email: user.email
                 }
 
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://cooking-corner-server-side.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -40,6 +44,7 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
+                        notifyLogin()
                         localStorage.setItem('cooking-token', data.token);
                         navigate(from, { replace: true })
                     })
@@ -48,24 +53,50 @@ const Login = () => {
             })
             .catch(error => {
                 setTheError(error.message);
-
+                notifyError()
             })
             .finally(() => {
                 setLoading(false)
             })
     }
 
+
     const handleGoogle = () => {
         setTheError('');
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                navigate('/');
+
+                const currentUser = {
+                    email: user.email
+                }
+
+                fetch('https://cooking-corner-server-side.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        notifyLogin()
+                        localStorage.setItem('cooking-token', data.token);
+                        navigate(from, { replace: true })
+                    })
+
+
             })
             .catch(error => {
                 setTheError(error.message);
+                notifyError()
+            })
+            .finally(() => {
+                setLoading(false)
             })
     }
+
 
     useEffect(() => {
         setLoader(true)
@@ -87,7 +118,7 @@ const Login = () => {
 
 
     return (
-        <div className="hero bg-base-100 max-w-screen-xl mx-auto">
+        <div className="hero bg-base-100 max-w-screen-xl mx-auto my-20">
             <div className="hero-content flex-col lg:flex-row">
                 <div className="text-center lg:text-left">
                     <img src={loginpic} alt="" />
@@ -117,7 +148,7 @@ const Login = () => {
                         </form>
                         <p className="-mt-1"><small>Don't have an account? <Link className='' to='/signup'>Sign Up</Link></small></p>
                         <div className="divider">OR</div>
-                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Google</button>
+                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Continue With Google</button>
                     </div>
                 </div>
             </div>

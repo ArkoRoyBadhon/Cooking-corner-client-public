@@ -37,12 +37,12 @@ const router = createBrowserRouter([
       {
         path: '/services',
         element: <AllServices></AllServices>,
-        loader: () => fetch('http://localhost:5000/services')
+        loader: () => fetch('https://cooking-corner-server-side.vercel.app/services')
       },
       {
         path: '/service/:id',
         element: <ServiceDetail></ServiceDetail>,
-        loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`)
+        loader: ({ params }) => fetch(`https://cooking-corner-server-side.vercel.app/services/${params.id}`)
       },
       {
         path: '/my-reviews',
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       {
         path: '/update-review/:id',
         element: <PrivateRoute><UpdateReview></UpdateReview></PrivateRoute>,
-        loader: ({params})=> fetch(`http://localhost:5000/review-one/${params.id}`)
+        loader: ({params})=> fetch(`https://cooking-corner-server-side.vercel.app/review-one/${params.id}`)
       },
       {
         path: '/add-service',

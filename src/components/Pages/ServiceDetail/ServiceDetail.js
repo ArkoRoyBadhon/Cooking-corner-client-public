@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
 import ReviewTable from '../MyReviews/ReviewTable';
+import toast from 'react-hot-toast'
+
 
 const ServiceDetail = () => {
     const { user } = useContext(AuthProvider);
@@ -9,6 +11,9 @@ const ServiceDetail = () => {
     const [submitbtn, setSubmitbtn] = useState(false);
     const [allreviews, setAllReviews] = useState([]);
     const { _id, name, image, rating, price, description } = service;
+
+
+    const notifyReview = () => toast.success('New Review Added') 
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -41,7 +46,7 @@ const ServiceDetail = () => {
             time: time
         }
         // console.log(reviewInfo);
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://cooking-corner-server-side.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 "content-type": 'application/json',
@@ -54,7 +59,7 @@ const ServiceDetail = () => {
             .then(data => {
                 console.log(data)
                 if (data.acknowledged) {
-                    alert('review submitted')
+                    notifyReview()
                     form.reset();
                 }
             })
@@ -66,9 +71,8 @@ const ServiceDetail = () => {
         setSubmitbtn(false);
     }
 
-
     useEffect(() => {
-        fetch(`http://localhost:5000/all-reviews/${_id}`)
+        fetch(`https://cooking-corner-server-side.vercel.app/all-reviews/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setAllReviews(data)
@@ -88,47 +92,47 @@ const ServiceDetail = () => {
                 <h3 className="text-xl font-semibold">Price: {price} BDT</h3>
                 <h4>Rating: {rating}</h4>
             </div>
-            <p className="text-md">{description}</p>
+            <p className="text-md w-4/5 lg:w-full mx-auto">{description}</p>
 
             <div className="divider"></div>
 
             <div className="">
                 <h4 className="text-center font-semibold">All Reviews</h4>
                 <div className="overflow-x-auto max-w-screen-xl mx-auto my-8">
-                    <table className="table w-full">
+                    <table className="table w-4/5 lg:w-full">
                         <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Rating</th>
-                                <th>Service Name</th>
-                                <th>Review</th>
-                                <th>Time</th>
+                            <tr className='p-3'>
+                                <th className='text-xs p-2'>Name</th>
+                                <th className='text-xs p-2'>Rating</th>
+                                <th className='text-xs p-2'>Service Name</th>
+                                <th className='text-xs p-2'>Review</th>
+                                <th className='text-xs p-2'>Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 allreviews.map(review =>
                                     <tr key={review._id}>
-                                        <td>
-                                            <div className="flex items-center space-x-3">
+                                        <td className='text-xs'>
+                                            <div className="lg:flex items-center space-x-3">
                                                 <div className="avatar">
                                                     <div className="mask mask-squircle w-12 h-12">
                                                         <img src={review.photourl} alt="img" onError={review.onImageError} />
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold">{review.name}</div>
+                                                    <div className="font-bold text-xs -ml-3 lg:ml-5">{review.name}</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td className='text-xs'>
                                             {review.rating}
                                         </td>
-                                        <td>
+                                        <td className='text-xs p-1'>
                                             {review.service_name}
                                         </td>
-                                        <td>{review.textarea}</td>
-                                        <td>{review.time}</td>
+                                        <td className='text-xs p-1'>{review.textarea}</td>
+                                        <td className='text-xs p-1'>{review.time}</td>
                                         {/* <td>
                 <button className='btn btn-outline btn-sm btn-info'>Update</button>
                 <button onClick={()=>handleDelete(_id)} className='ml-3 btn btn-outline btn-secondary btn-sm'>Delete</button>
@@ -142,7 +146,7 @@ const ServiceDetail = () => {
             </div>
 
             <div>
-                <a href="#my-modal-2" className="btn my-8">Give a review</a>
+                <a href="#my-modal-2" className="btn btn-sm my-8">Give a review</a>
                 {
                     user?.uid ?
                         <>

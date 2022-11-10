@@ -4,6 +4,8 @@ import signup from '../../../assets/23640-sign-in-or-sign-up-animation.gif'
 import { AuthProvider } from '../../../Context/AuthContext';
 import useTitle from '../../Hooks/useTitle';
 import Spinner from '../../Spinner';
+import toast from 'react-hot-toast'
+
 
 
 const SignUp = () => {
@@ -14,6 +16,8 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const [loader, setLoader] = useState(false);
+
+    const notifySignUp = () => toast.success('User Sign Up Succcess!!')
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -40,6 +44,7 @@ const SignUp = () => {
                 // setUser('')
                 // notify();
                 // verifyEmail();
+                notifySignUp()
                 navigate('/login');
             })
             .catch(error => {
@@ -126,17 +131,15 @@ const SignUp = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name='password' placeholder="Password" className="input input-bordered" />
-                                <label className="label">
-                                    <p>Already have an account? <Link to='/login'>Login</Link></p>
-                                </label>
+                                
                             </div>
                             <div className="form-control mt-6">
                                 <input type="submit" value="signup" className='btn btn-primary' />
                             </div>
                         </form>
-                        <p className="-mt-1"><small>Don't have an account? <Link className='' to='/signup'>Sign Up</Link></small></p>
+                        <p>Already have an account? <Link to='/login'>Login</Link></p>
                         <div className="divider">OR</div>
-                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Google</button>
+                        <button onClick={handleGoogle} className="btn btn-info hover:btn-secondary">Continue With Google</button>
                     </div>
                 </div>
             </div>

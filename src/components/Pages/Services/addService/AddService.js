@@ -26,7 +26,7 @@ const AddService = () => {
 
         console.log(createInfo);
 
-        fetch('http://localhost:5000/add-service', {
+        fetch('https://cooking-corner-server-side.vercel.app/add-service', {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -46,7 +46,7 @@ const AddService = () => {
     }
 
     return (
-        <div className='card w-96 bg-base-100 shadow-xl mx-auto min-h-max my-20'>
+        <div className='card w-4/5 lg:w-96 bg-base-100 shadow-xl mx-auto min-h-max my-20'>
             <h4 className="text-center text-xl font-bold">Create a New Service</h4>
             <form className=' w-4/5 mx-auto my-6' onSubmit={handleSubmit}>
                 <div className="form-control w-full max-w-xs mx-auto">

@@ -2,10 +2,15 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthProvider } from '../../../Context/AuthContext';
 import blank_img from '../../../assets/blank_profile.png'
+import toast from 'react-hot-toast'
+import logo from '../../../assets/logo_cook.jpg'
+
 
 const Header = () => {
 
     const { user, logOut } = useContext(AuthProvider)
+
+    const notifyLogOut = () => toast.success('User Log Out Successfully');
 
     const links = <>
         <li><Link to='/'>Home</Link></li>
@@ -21,6 +26,7 @@ const Header = () => {
 
     const handleLogOut = () => {
         logOut();
+        notifyLogOut();
     }
 
     const placeholderImage = blank_img
@@ -40,12 +46,12 @@ const Header = () => {
                         {links}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl font-bold">Cooking Corner</Link>
+
+                <Link to='/' className="btn btn-ghost normal-case text-xl font-bold"><img className='w-12' src={logo} alt="" /> <span className='hidden lg:block ml-2'>Cooking Corner</span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     {links}
-
                 </ul>
             </div>
             <div className="navbar-end">
@@ -55,11 +61,13 @@ const Header = () => {
                         <>
 
                             <div className="avatar online mr-3">
-                                <div className="w-12 rounded-full">
-                                    <img src={user?.photoURL} alt="img" onError={onImageError} />
+                                <div className="w-12 rounded-full tooltip tooltip-left" data-tip={`${user?.displayName}`} >
+                                    <button className='btn'>
+                                        <img src={user?.photoURL} alt="img" onError={onImageError} />
+                                    </button>
                                 </div>
                             </div>
-                            <p>{user?.displayName}</p>
+                            <p className='hidden lg:block'>{user?.displayName}</p>
                             <button className='btn btn-outline btn-primary btn-sm ml-3' onClick={handleLogOut}>Log out</button>
                         </> :
                         <>
@@ -68,8 +76,8 @@ const Header = () => {
                                     <img src={blank_img} alt='' />
                                 </div>
                             </div>
-                            <button className='btn btn-outline btn-primary btn-sm ml-3'><Link to='/login'>Login</Link></button>
-                            <button className='btn btn-outline btn-primary btn-sm ml-3'><Link to='/signup'>Sign Up</Link></button>
+                            <button className='btn btn-outline btn-primary btn-xs lg:btn-sm ml-3 '><Link to='/login'>Login</Link></button>
+                            <button className='btn btn-outline btn-primary btn-xs lg:btn-sm ml-3'><Link to='/signup'>Sign Up</Link></button>
                         </>
                 }
             </div>

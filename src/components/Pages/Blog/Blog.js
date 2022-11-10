@@ -6,7 +6,7 @@ const Blog = () => {
     useTitle("Blog");
 
     return (
-        <div className='w-3/5 mx-auto text-center my-12'>
+        <div className='w-4/5 lg:w-3/5 mx-auto text-center my-12'>
             <div className="collapse rounded-xl">
                 <input type="checkbox" />
                 <div className="collapse-title text-xl font-medium border bg-emerald-300">

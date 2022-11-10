@@ -1,12 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthProvider } from '../../../../Context/AuthContext';
+import toast from 'react-hot-toast';
+
 
 const UpdateReview = () => {
     const { user } = useContext(AuthProvider);
     const review = useLoaderData();
 
     // console.log(review);
+
+    const notify = () => toast.success('Update Review Successfully');
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -37,7 +41,7 @@ const UpdateReview = () => {
             time: time
         }
         // console.log(reviewInfo);
-        fetch(`http://localhost:5000/reviews/${review._id}`, {
+        fetch(`https://cooking-corner-server-side.vercel.app/reviews/${review._id}`, {
             method: 'PATCH',
             headers: {
                 "content-type": 'application/json',
@@ -49,7 +53,7 @@ const UpdateReview = () => {
             .then(data => {
                 console.log(data)
                 if (data.acknowledged) {
-                    alert('review submitted')
+                    notify();
                     form.reset();
                 }
             })
