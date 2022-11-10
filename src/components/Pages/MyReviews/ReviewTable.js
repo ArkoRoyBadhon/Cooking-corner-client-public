@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import blank_img from '../../../assets/blank_profile.png'
-import './table.css'
 
 
 const ReviewTable = ({ review, reviewData, handleDelete }) => {

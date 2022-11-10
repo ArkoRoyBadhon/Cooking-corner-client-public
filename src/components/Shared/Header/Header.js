@@ -59,12 +59,9 @@ const Header = () => {
                     (user?.photoURL)
                         ?
                         <>
-
-                            <div className="avatar online mr-3">
-                                <div className="w-12 rounded-full tooltip tooltip-left" data-tip={`${user?.displayName}`} >
-                                    <button className='btn'>
-                                        <img src={user?.photoURL} alt="img" onError={onImageError} />
-                                    </button>
+                            <div className="">
+                                <div className="w-12 online tooltip tooltip-left" data-tip={user?.displayName} >
+                                        <img src={user?.photoURL} className="rounded-3xl" alt="img" onError={onImageError} />
                                 </div>
                             </div>
                             <p className='hidden lg:block'>{user?.displayName}</p>

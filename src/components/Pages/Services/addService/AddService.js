@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import useTitle from '../../../Hooks/useTitle';
+import toast from 'react-hot-toast'
+
 
 const AddService = () => {
     const [uploadInfo, setUploadInfo] = useState([])
 
     useTitle("Add Service");
+    const notifyAddService = () => toast.success('A new service added');
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -37,7 +40,7 @@ const AddService = () => {
             .then(res => res.json())
             .then(data => {
                 setUploadInfo(data)
-                alert('created successfully')
+                notifyAddService();
                 form.reset();
             })
             .catch(err => console.log(err))
